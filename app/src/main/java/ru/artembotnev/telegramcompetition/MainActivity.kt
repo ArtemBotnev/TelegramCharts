@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import ru.artembotnev.telegramcompetition.model.Chart
+import ru.artembotnev.telegramcompetition.model.entities.Chart
 
 class MainActivity : AppCompatActivity() {
 

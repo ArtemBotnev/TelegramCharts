@@ -1,32 +1,36 @@
 package ru.artembotnev.telegramcompetition
 
-import android.util.Log
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.rule.ActivityTestRule
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import org.junit.Assert.*
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import ru.artembotnev.telegramcompetition.model.Chart
+import ru.artembotnev.telegramcompetition.model.entities.Chart
 
 @RunWith(AndroidJUnit4::class)
 class DataDeserializationInstrumentalTest {
 
     companion object {
         private const val SOURCE_FILE_NAME = "chart_data.json"
-        private const val TAG = "DataDeserializationInstrumentalTest"
     }
 
-    val context = InstrumentationRegistry.getInstrumentation().context
+    @get:Rule
+    val activityRule: ActivityTestRule<MainActivity> =
+            ActivityTestRule(MainActivity::class.java)
 
     @Test
     fun getDataFromJsonAndCheck() {
-        val jsonString = context.assets.readFile(SOURCE_FILE_NAME)
+        val jsonString = activityRule.activity
+            .assets.readFile(SOURCE_FILE_NAME)
 
         val data: List<Chart> = GsonBuilder().create()
                 .fromJson(jsonString, object : TypeToken<List<Chart>>() {}.type)
 
-        Log.i(TAG, "charts count: ${data.size}")
-
+        assertEquals("x", data[0].columns[0][0])
+        assertEquals(1542412800000L, data[0].columns[0][1].toLong())
+        assertEquals("#F34C44", data[3].colors["y1"])
     }
 }
