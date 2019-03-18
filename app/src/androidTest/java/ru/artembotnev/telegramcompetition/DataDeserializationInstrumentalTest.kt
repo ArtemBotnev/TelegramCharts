@@ -9,6 +9,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import ru.artembotnev.telegramcompetition.model.entities.Chart
+import ru.artembotnev.telegramcompetition.ui.MainActivity
 
 @RunWith(AndroidJUnit4::class)
 class DataDeserializationInstrumentalTest {

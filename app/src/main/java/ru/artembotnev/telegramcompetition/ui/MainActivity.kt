@@ -1,11 +1,14 @@
-package ru.artembotnev.telegramcompetition
+package ru.artembotnev.telegramcompetition.ui
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import ru.artembotnev.telegramcompetition.R
 import ru.artembotnev.telegramcompetition.model.entities.Chart
+import ru.artembotnev.telegramcompetition.readFile
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,7 +21,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+//        setContentView(R.layout.activity_main)
+        val view = ChartView(this).apply {
+            setBackgroundColor(Color.WHITE)
+        }
+        setContentView(view)
 
         val jsonString = assets.readFile(SOURCE_FILE_NAME)
         Log.i(TAG, jsonString)
