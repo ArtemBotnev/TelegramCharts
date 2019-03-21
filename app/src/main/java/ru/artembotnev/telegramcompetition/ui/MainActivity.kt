@@ -32,5 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         data = GsonBuilder().create()
                 .fromJson(jsonString, object : TypeToken<List<Chart>>() {}.type)
+
+        view.chart = data[0]
     }
 }
