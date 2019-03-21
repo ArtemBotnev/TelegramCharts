@@ -50,7 +50,7 @@ class ChartView : View {
             .map { it.toFloat() }
 
         val yDelta = allYList.max()!! - allYList.min()!!
-        val yStep = yDelta / h
+        val yStep = h / yDelta
         Log.i(TAG, String.format("y1 step: %.2f", yStep))
 
         val yMap = getYMap(
