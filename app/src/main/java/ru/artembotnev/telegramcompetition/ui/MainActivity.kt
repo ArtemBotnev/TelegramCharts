@@ -2,6 +2,8 @@ package ru.artembotnev.telegramcompetition.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_main.*
@@ -26,6 +28,16 @@ class MainActivity : AppCompatActivity() {
         data = GsonBuilder().create()
                 .fromJson(jsonString, object : TypeToken<List<Chart>>() {}.type)
 
-        chartView.chart = data[0]
+        adjustRecycler()
+    }
+
+    private fun adjustRecycler() {
+        recycler.run {
+            layoutManager = LinearLayoutManager(this@MainActivity,
+                RecyclerView.VERTICAL,
+                false
+            )
+            adapter = ChartAdapter(data)
+        }
     }
 }
