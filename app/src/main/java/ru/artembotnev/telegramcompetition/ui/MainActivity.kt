@@ -2,6 +2,7 @@ package ru.artembotnev.telegramcompetition.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -21,10 +22,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun adjustRecycler() {
         recycler.run {
-            layoutManager = LinearLayoutManager(this@MainActivity,
-                RecyclerView.VERTICAL,
-                false
+            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
+
+            addItemDecoration(
+                DividerItemDecoration(context, DividerItemDecoration.VERTICAL).apply {
+                    context.getDrawable(R.drawable.divider)?.let { setDrawable(it) }
+                }
             )
+
             adapter = ChartAdapter(viewModel.charts)
         }
     }
