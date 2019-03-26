@@ -15,10 +15,6 @@ class ChartView : View {
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
-    companion object {
-        private const val TAG = "ChartView"
-    }
-
     var chart: Chart? = null
         set(value) {
             field = value
@@ -40,18 +36,21 @@ class ChartView : View {
     private fun drawChart(chart: Chart, canvas: Canvas) {
         val xList = getXPoints(
             chart.columns[0]
-                .drop(1)
-                .map { it.toLong() }
+                    .asSequence()
+                    .drop(1)
+                    .map { it.toLong() }
+                    .toList()
         )
 
         val allYList = chart.columns
-            .drop(1)
-            .flatMap { it.drop(1) }
-            .map { it.toFloat() }
+                .asSequence()
+                .drop(1)
+                .flatMap { it.drop(1).asSequence() }
+                .map { it.toFloat() }
+                .toList()
 
         val yDelta = allYList.max()!! - allYList.min()!!
         val yStep = h / yDelta
-        Log.i(TAG, String.format("y1 step: %.2f", yStep))
 
         val yMap = getYMap(
             chart.columns
@@ -71,7 +70,6 @@ class ChartView : View {
     private fun getXPoints(times: List<Long>): List<Float> {
         val timeDelta = times.last() - times.first()
         val timeStep = timeDelta / w
-        Log.i(TAG, String.format("x step: %.2f", timeStep))
 
         return times.map { (it - times[0]) / timeStep }
     }
@@ -84,9 +82,11 @@ class ChartView : View {
         values.forEach { list ->
             val key = list[0]
             val floatList = list
-                .drop(1)
-                .map { it.toFloat() }
-                .map { h - ((it - yMin) * step) }
+                    .asSequence()
+                    .drop(1)
+                    .map { it.toFloat() }
+                    .map { h - ((it - yMin) * step) }
+                    .toList()
 
             map[key] = floatList
         }
