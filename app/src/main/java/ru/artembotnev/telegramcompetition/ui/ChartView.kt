@@ -34,13 +34,13 @@ class ChartView : View {
     }
 
     private fun drawChart(chart: Chart, canvas: Canvas) {
-        val xList = getXPoints(
-            chart.columns[0]
-                    .asSequence()
-                    .drop(1)
-                    .map { it.toLong() }
-                    .toList()
-        )
+        val times = chart.columns[0]
+                .asSequence()
+                .drop(1)
+                .map { it.toLong() }
+                .toList()
+
+        val xList = getXPoints(times)
 
         val allYList = chart.columns
                 .asSequence()
@@ -53,8 +53,7 @@ class ChartView : View {
         val yStep = h / yDelta
 
         val yMap = getYMap(
-            chart.columns
-                .drop(1),
+            chart.columns.drop(1),
             yStep,
             allYList.min()!!
         )

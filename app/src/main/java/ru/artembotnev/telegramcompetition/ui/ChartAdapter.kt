@@ -21,7 +21,7 @@ class ChartAdapter(private val charts: List<Chart>)
         : RecyclerView.ViewHolder(inflater.inflate(R.layout.item_chart, parent, false)) {
 
         fun onBind(c: Chart) {
-            itemView.findViewById<ChartView>(R.id.chart_view).apply {
+            itemView.findViewById<ChartView>(R.id.chart_view).run {
                 chart = c
             }
         }
